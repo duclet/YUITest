@@ -6,7 +6,7 @@ description: JavaScript testing with YUI 3 Test.
 
 authors: Duc Tri le
 
-provides: YUITest
+provides: Core, TestCases
 ...
 */
 var YUITest = {

@@ -8,17 +8,32 @@ description: Holds various configurations for the test. Note that when the
 
 authors: Duc Tri le
 
-requires: YUITest
+requires: Core
 
-provides: YUITest.Configs
+provides: Configs
 ...
 */
 YUITest.Configs = {
+	/**
+	 * @var String	The ID for the element on the test suite page that contains
+	 * 		the final tally of all test results.
+	 */
+	final_tally: 'final_tally_result',
+
 	/**
 	 * @var String	CSS selector for the element on the test suite page that
 	 * 		logs results from all test pages.
 	 */
 	global_logger: '#logger',
+
+	/**
+	 * @var Object	Configurations for the global logger.
+	 */
+	global_logger_config: {
+		height: '95%',
+		newestOnTop: false,
+		width: '500px'
+	},
 
 	/**
 	 * @var Array	An array containing the relative path to the pages to test.
@@ -38,11 +53,38 @@ YUITest.Configs = {
 	'</ul>',
 
 	/**
-	 * @var String	The CSS selector for the element on the Testee page whose
+	 * @var String	The CSS selector for the element on the testee page whose
 	 * 		innerHTML contains the name of test cases (separated by commas) to
 	 * 		test.
 	 */
 	test_cases_selector: '#test_cases',
+
+	/**
+	 * @var String	Template for the ID of each testee information div on the
+	 * 		test suite page.
+	 */
+	testee_id_tpt: '#testee_{counter}',
+
+	/**
+	 * @var String	The unique name for the testee window.
+	 */
+	testee_window_name: 'yuitest_testee',
+
+	/**
+	 * @var String	The CSS selector for the element on the tester page that
+	 * 		will hold the logger.
+	 */
+	tester_logger: '#logger',
+
+	/**
+	 * @var Object	Configurations for the logger on the tester page.
+	 */
+	tester_logger_config: {
+		height: '500px',
+		newestOnTop: false,
+		width: '95%',
+		style: 'inline'
+	},
 
 	/**
 	 * @var String	The type for the tester. Possible values are:
@@ -50,6 +92,16 @@ YUITest.Configs = {
 	 * 		- window: The tester will be popped to its own window. Default.
 	 */
 	tester_type: 'window',
+
+	/**
+	 * @var String	Template for generating the URL of the tester.
+	 */
+	tester_url_tpt: '{protocol}//{host}/tests/unit_test.php',
+
+	/**
+	 * @var String	The unique name for the tester window/iframe.
+	 */
+	tester_window_name: 'yuitest_tester',
 
 	// ---------------------------------------------------------------------- //
 

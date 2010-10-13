@@ -9,9 +9,9 @@ description: The test suite allows for running multiple test pages at once. It
 
 authors: Duc Tri le
 
-requires: [YUITest, YUITest.Configs]
+requires: [Core, Configs]
 
-provides: YUITest.TestSuite
+provides: TestSuite
 ...
 */
 YUITest.TestSuite = {
@@ -39,21 +39,21 @@ YUITest.TestSuite = {
 	// ---------------------------------------------------------------------- //
 
 	/**
-	 * Initialize the test suite.
+	 * Initialize the test suite. Note that once the initialization has been 
+	 * completed, the YUI instance will be set to the global variable $Y.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
+			var configs = YUITest.Configs;
+
 			// Load any configurations
-			YUITest.Configs.load();
+			configs.load();
 
 			// Create the console that will log all results from all test pages
-			new $Y.Console({
-				height: '95%',
-				newestOnTop: false,
-				width: '500px'
-			}).render(YUITest.Configs.global_logger);
+			new $Y.Console(configs.global_logger_config)
+				.render(configs.global_logger);
 
 			// And now, begin testing
 			YUITest.TestSuite.runNextTestPage();
@@ -61,7 +61,8 @@ YUITest.TestSuite = {
 	},
 
 	/**
-	 * Log an event to the global logget.
+	 * Event handler for logging messages from the tester page to this test
+	 * suite.
 	 *
 	 * @param Object	event	The event that was triggered.
 	 * @returns void
@@ -70,7 +71,11 @@ YUITest.TestSuite = {
 		// No need to log the opening test suite text
 		if(event.message.message.indexOf('Test suite') === 0) { return; }
 
-		var last_test_page = YUITest.Configs.pages[YUITest.TestSuite.$counter - 1];
+		// And now log
+		var last_test_page = YUITest.Configs.pages[
+			YUITest.TestSuite.$counter - 1
+		];
+
 		$Y.log(event.message.message, event.message.category, last_test_page);
 	},
 
@@ -87,12 +92,16 @@ YUITest.TestSuite = {
 		var configs = YUITest.Configs;
 		var body = $Y.one(document.body);
 
-		// If we have results, record it
+		// If results were provided, update the previous test information
 		if(results) {
-			// Add the results to the page display
-			body.one('#test_page_' + (me.$counter - 1)).append($Y.substitute(
+			var testee_id = $Y.Lang.sub(configs.testee_id_tpt, {
+				counter: me.$counter - 1
+			});
+
+			// Update the HTML
+			body.one(testee_id).append($Y.Lang.sub(
 				'<strong> Done.</strong><br />' + configs.result_tpt, {
-					id: 'test_page_' + (me.$counter - 1) + '_result',
+					id: testee_id + '_result',
 					duration: (results.duration / 1000).toFixed(2),
 					ignored: results.ignored,
 					failed: results.failed,
@@ -109,27 +118,34 @@ YUITest.TestSuite = {
 			me.$tally.total += results.total;
 		}
 
-		// Run the next test page if there are any, otherwise, wrap things up
 		if(me.$counter < configs.pages.length) {
 			var test_page = configs.pages[me.$counter];
-			body.append($Y.substitute(
-				'<div id="test_page_{counter}">Running tests on {page}...</div>',
-				{counter: me.$counter, page: test_page}
+
+			// Update the test suite to let the user know we are running another
+			// test page
+			body.append($Y.Lang.sub(
+				'<div id="' + configs.testee_id_tpt + '">' +
+				'Running tests on {page}...</div>', {
+					counter: me.$counter,
+					page: test_page
+				}
 			));
 
-			me.$testee = window.open($Y.substitute(
+			// And now, run the test
+			me.$testee = window.open($Y.Lang.sub(
 				'{protocol}//{host}{page}', {
 					protocol: window.location.protocol,
 					host: window.location.host,
 					page: test_page
 				}
-			), 'js_unit_testee');
+			), configs.testee_window_name);
 
 			++me.$counter;
 		} else {
-			body.append($Y.substitute(
+			// If we made it here, all tests were completed so wrap things up
+			body.append($Y.Lang.sub(
 				'<hr /><h3>All tests complete.</h3>' + configs.result_tpt, {
-					id: 'final_tally_result',
+					id: configs.final_tally,
 					duration: (me.$tally.duration / 1000).toFixed(2),
 					ignored: me.$tally.ignored,
 					failed: me.$tally.failed,

@@ -1,12 +1,12 @@
 /*
 ---
-name: YUITest
+name: Core
 
 description: JavaScript testing with YUI 3 Test.
 
-authors: Duc Tri le
+authors: Duc Tri Le
 
-provides: Core, TestCases
+provides: [Core, TestCases]
 ...
 */
 var YUITest = {

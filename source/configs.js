@@ -6,7 +6,7 @@ description: Holds various configurations for the test. Note that when the
 	script tries to load the configs, it will load the configs from the test
 	suite if there are any, then the testee, and finally the tester.
 
-authors: Duc Tri le
+authors: Duc Tri Le
 
 requires: Core
 

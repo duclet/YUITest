@@ -5,7 +5,7 @@ name: YUITest.Testee
 description: The testee is use on the page that will be tested against. Refer to
 	the testee.php file for what this test page should look like.
 
-authors: Duc Tri le
+authors: Duc Tri Le
 
 requires: [Core, Configs]
 

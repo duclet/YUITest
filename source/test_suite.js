@@ -7,7 +7,7 @@ description: The test suite allows for running multiple test pages at once. It
 	continuing onto the next test page. Refer to the test_suite.php file for
 	what this test page should look like.
 
-authors: Duc Tri le
+authors: Duc Tri Le
 
 requires: [Core, Configs]
 

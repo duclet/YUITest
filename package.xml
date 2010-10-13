@@ -1,0 +1,14 @@
+name: "YUITest"
+
+exports: "yuitest.js"
+
+description: "JavaScript testing with YUI 3 Test"
+
+authors: "Duc Tri Le"
+
+sources:
+  - "source/base.js"
+  - "source/configs.js"
+  - "source/test_suite.js"
+  - "source/testee.js"
+  - "source/tester.js"

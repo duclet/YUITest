@@ -8,7 +8,7 @@ description: Holds various configurations for the test. Note that when the
 
 authors: Duc Tri Le
 
-requires: Core
+requires: Base
 
 provides: Configs
 ...
@@ -45,11 +45,11 @@ YUITest.Configs = {
 	 * @var String	Template for the result HTML.
 	 */
 	result_tpt: '<ul id="{id}">' +
-		'<li>Duration: {duration} seconds</li>' +
-		'<li>Ignored Tests: {ignored}</li>' +
-		'<li>Failed Tests: {failed}</li>' +
-		'<li>Passed Tests: {passed}</li>' +
-		'<li>Total Tests: {total}</li>' +
+		'<li class="duration" data-value="{duration}">Duration: {duration} seconds</li>' +
+		'<li class="ignored" data-value="{ignored}">Ignored Tests: {ignored}</li>' +
+		'<li class="failed" data-value="{failed}">Failed Tests: {failed}</li>' +
+		'<li class="passed" data-value="{passed}">Passed Tests: {passed}</li>' +
+		'<li class="total" data-value="{total}">Total Tests: {total}</li>' +
 	'</ul>',
 
 	/**
@@ -63,7 +63,15 @@ YUITest.Configs = {
 	 * @var String	Template for the ID of each testee information div on the
 	 * 		test suite page.
 	 */
-	testee_id_tpt: '#testee_{counter}',
+	testee_id_tpt: 'testee_{counter}',
+
+	/**
+	 * @var String	The type for the testee. Possible values are:
+	 * 		- iframe: The testee will be loaded into an iframe on the test
+	 * 			suite.
+	 * 		- window: The testee will be popped to its own window. Default.
+	 */
+	testee_type: 'window',
 
 	/**
 	 * @var String	The unique name for the testee window.
@@ -115,31 +123,27 @@ YUITest.Configs = {
 	/**
 	 * Load the configurations.
 	 *
-	 * @returns void
+	 * @returns YUITest.Configs
 	 */
 	load: function() {
 		var me = YUITest.Configs;
+		var set = function(configs) {
+			$Y.Object.each(configs, function(value, key) { me[key] = value; });
+		};
+		var recursion = function(current) {
+			// Load the container's configurations first
+			if(current.$C && current.$C.YUITest) { recursion(current.$C); }
 
-		// If there is a global $C variable, load the container's configs first
-		if($C && $C.YUITest) {
-			// If there is a global $C.$C, then we are on the tester page in
-			// which case there maybe even another container
-			if($C.$C && $C.$C.YUITest && $C.$C.YUITest.Configs.$user_configs) {
-				me._load($C.$C.YUITest.Configs.$user_configs);
+			// Now load the configurations if there are any
+			if(current.YUITest && current.YUITest.Configs.$user_configs) {
+				set(current.YUITest.Configs.$user_configs);
 			}
+		};
 
-			if($C.YUITest.Configs.$user_configs) {
-				me._load($C.YUITest.Configs.$user_configs);
-			}
-		}
-
-		// Lastly, load this page's configs
-		if(me.$user_configs) { me._load(me.$user_configs); }
-	},
-	_load: function(configs) {
-		$Y.Object.each(YUITest.Configs, function(value, key) {
-			YUITest.Configs[key] = value;
-		});
+		// Recursively load the configurations so the children configurations
+		// will overwrite the parent's configurations
+		recursion(window);
+		return me;
 	},
 
 	/**
@@ -147,9 +151,11 @@ YUITest.Configs = {
 	 * existing configurations.
 	 *
 	 * @param Object	configs		The configurations to set.
-	 * @returns void
+	 * @returns YUITest.Configs
 	 */
 	set: function(configs) {
-		YUITest.Configs.$user_configs = configs;
+		var me = YUITest.Configs;
+		me.$user_configs = configs;
+		return me;
 	}
 };

@@ -7,7 +7,7 @@ description: The testee is use on the page that will be tested against. Refer to
 
 authors: Duc Tri Le
 
-requires: [Core, Configs]
+requires: [Base, Configs]
 
 provides: Testee
 ...
@@ -31,10 +31,10 @@ YUITest.Testee = {
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			// See if we have a test suite
-			if(window.opener && window.opener.YUITest) {
-				window.$C = window.opener;
-			}
+			// See if this testee was loaded via an iframe or a popup window and
+			// if we have a test suite or not
+			var ts = window == window.parent ? window.opener : window.parent;
+			if(ts && ts.YUITest) { window.$C = ts; }
 
 			// Load any configurations
 			YUITest.Configs.load();
@@ -50,18 +50,17 @@ YUITest.Testee = {
 	 * @returns Array
 	 */
 	getTestCases: function() {
-		var body = $Y.one(document.body);
-		var test_cases = body.one(YUITest.Configs.test_cases_selector);
-
+		var test_cases = $Y.one(YUITest.Configs.test_cases_selector);
 		return test_cases ? test_cases.get('innerHTML').split(',') : [];
 	},
 
 	/**
 	 * Start the testing.
 	 *
-	 * @returns void
+	 * @returns YUITest.Testee
 	 */
 	start: function() {
+		var me = YUITest.Testee;
 		var configs = YUITest.Configs;
 		var tester_url = $Y.Lang.sub(configs.tester_url_tpt, {
 				protocol: window.location.protocol,
@@ -69,24 +68,29 @@ YUITest.Testee = {
 			}
 		);
 
-		// Should we create an iframe or a popup window
+		// Are we using an iframe or a popup window?
 		if(configs.tester_type === 'iframe') {
-			var body = $Y.one(document.body);
-			var id = '#' + configs.tester_window_name;
-			var iframe = body.one(id);
+			var iframe_id = '#' + configs.tester_window_name;
+			var iframe = $Y.one(iframe_id);
 			if(!iframe) {
-				body.append($Y.Lang.sub(
-					'<iframe id="{id}"></iframe>', { id: id }
-				);
+				$Y.one(document.body).append($Y.Lang.sub(
+					'<iframe id="{id}" name="{id}"></iframe>', {
+						id: configs.tester_window_name
+					}
+				));
 
-				iframe = body.one(id);
+				iframe = $Y.one(iframe_id).setStyles({
+					height: '400px',
+					width: '100%'
+				});
 			}
 
 			iframe.set('src', tester_url);
 		} else {
-			YUITest.Testee.$tester = window.open(
-				tester_url, configs.tester_window_name
-			);
+			// The default is opening a popup window
+			me.$tester = window.open(tester_url, configs.tester_window_name);
 		}
+
+		return me;
 	}
 };

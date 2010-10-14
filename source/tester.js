@@ -7,7 +7,7 @@ description: The tester is the page that will actually do the testing. Refer to
 
 authors: Duc Tri le
 
-requires: [Core, Configs, TestSuite, Testee, TestCases]
+requires: [Base, Configs, TestSuite, Testee, TestCases]
 
 provides: Tester
 ...
@@ -39,9 +39,10 @@ YUITest.Tester = {
 	/**
 	 * Start running the tests.
 	 *
-	 * @returns void
+	 * @returns YUITest.Tester
 	 */
 	start: function() {
+		var me = YUITest.Tester;
 		var configs = YUITest.Configs;
 		var body = $Y.one(document.body);
 
@@ -75,5 +76,6 @@ YUITest.Tester = {
 
 		// Finally, run the tests
 		$Y.Test.Runner.run();
+		return me;
 	}
 };

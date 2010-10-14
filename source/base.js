@@ -1,12 +1,13 @@
 /*
 ---
-name: Core
+name: Base
 
-description: JavaScript testing with YUI 3 Test.
+description: JavaScript testing with YUI 3 Test. Note that the most up to date
+	version of this is available on github at: http://github.com/duclet/YUITest
 
 authors: Duc Tri Le
 
-provides: [Core, TestCases]
+provides: [Base, TestCases]
 ...
 */
 var YUITest = {

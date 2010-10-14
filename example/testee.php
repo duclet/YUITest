@@ -15,10 +15,11 @@
 		<?php } ?>
 	</head>
 	<body class="yui3-skin-sam">
-		<!-- THe normal page content here -->
+		<!-- The normal page content here -->
 		
 		<?php if($is_testing_javascript) { ?>
 			<div id="logger"></div>
+			<div id="test_cases">NameOfTestCase1,NameOfTestCase2,NameOfTestCase3</div>
 			<script type="text/javascript">
 			// Overwrite the default and the test suite configurations
 			YUITest.Configs.set({ tester_type: 'window' });

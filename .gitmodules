@@ -1,0 +1,3 @@
+[submodule "assets/packager"]
+	path = assets/packager
+	url = git://github.com/kamicane/packager.git

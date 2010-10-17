@@ -158,8 +158,12 @@ YUITest.TestSuite = {
 			++me.$counter;
 		} else {
 			// If we made it here, all tests were completed so wrap things up
+			var final_message = me.$tally.failed ?
+				'<h3 style="color: red;">Aww, {failed} tests failed.</h3>' :
+				'<h3 style="color: green;">Congrats! No failed tests!</h3>';
+
 			body.append($Y.Lang.sub(
-				'<hr /><h3>All tests complete.</h3>' + configs.result_tpt, {
+				'<hr />' + final_message + configs.result_tpt, {
 					id:			configs.final_tally,
 					duration:	(me.$tally.duration / 1000).toFixed(2),
 					ignored:	me.$tally.ignored,

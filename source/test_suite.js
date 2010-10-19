@@ -162,8 +162,8 @@ YUITest.TestSuite = {
 				'<h3 style="color: red;">Aww, {failed} tests failed.</h3>' :
 				'<h3 style="color: green;">Congrats! No failed tests!</h3>';
 
-			body.append($Y.Lang.sub(
-				'<hr />' + final_message + configs.result_tpt, {
+			body.prepend($Y.Lang.sub(
+				final_message + configs.result_tpt + '<hr />', {
 					id:			configs.final_tally,
 					duration:	(me.$tally.duration / 1000).toFixed(2),
 					ignored:	me.$tally.ignored,

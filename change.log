@@ -1,0 +1,9 @@
+Version 0.2
+* Added code to personalize the final tally message.
+* Set the final tally HTML to the top of the page rather than at the bottom.
+
+--------------------------------------------------------------------------------
+
+2010/10/14:
+Version 0.1
+* Initial release.

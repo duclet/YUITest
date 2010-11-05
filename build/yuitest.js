@@ -12,6 +12,11 @@ provides: [Base, TestCases]
 */
 var YUITest = {
 	/**
+	 * @var String	The current version number.
+	 */
+	version: 0.2,
+
+	/**
 	 * @var Object	All the test cases. Note that the value of each property
 	 * 		should just be an object that will be passed to Y.Test.Case's
 	 * 		constructor.
@@ -487,7 +492,12 @@ YUITest.Testee = {
 	 */
 	getTestCases: function() {
 		var test_cases = $Y.one(YUITest.Configs.test_cases_selector);
-		return test_cases ? test_cases.get('innerHTML').split(',') : [];
+		test_cases = test_cases ? test_cases.get('innerHTML').split(',') : [];
+		$Y.Array.each(test_cases, function(item, key) {
+			test_cases[key] = $Y.Lang.trim(item);
+		});
+
+		return test_cases;
 	},
 
 	/**

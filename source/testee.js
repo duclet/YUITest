@@ -2,8 +2,8 @@
 ---
 name: YUITest.Testee
 
-description: The testee is use on the page that will be tested against. Refer to
-	the testee.php file for what this test page should look like.
+description: The testee is use on the page that will be tested against. Refer to the testee.php file
+	for what this test page should look like.
 
 authors: Duc Tri Le
 
@@ -14,25 +14,24 @@ provides: Testee
 */
 YUITest.Testee = {
 	/**
-	 * @var Window	Reference to the tester window if the tester was opened via
-	 * 		a window.
+	 * @var Window	Reference to the tester window if the tester was opened via a window.
 	 */
 	$tester: null,
 
 	// ---------------------------------------------------------------------- //
 
 	/**
-	 * Initilize the test page. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y. If
-	 * this page was opened via another page and that page have a YUITest
-	 * object, a reference to that page will be put into the global variable $C.
+	 * Initilize the test page. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y. If this page was opened via another page and
+	 * that page have a YUITest object, a reference to that page will be put into the global
+	 * variable $C.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			// See if this testee was loaded via an iframe or a popup window and
-			// if we have a test suite or not
+			// See if this testee was loaded via an iframe or a popup window and if we have a test
+			// suite or not
 			var ts = window == window.parent ? window.opener : window.parent;
 			if(ts && ts.YUITest) { window.$C = ts; }
 
@@ -51,7 +50,12 @@ YUITest.Testee = {
 	 */
 	getTestCases: function() {
 		var test_cases = $Y.one(YUITest.Configs.test_cases_selector);
-		return test_cases ? test_cases.get('innerHTML').split(',') : [];
+		test_cases = test_cases ? test_cases.get('innerHTML').split(',') : [];
+		$Y.Array.each(test_cases, function(item, key) {
+			test_cases[key] = $Y.Lang.trim(item);
+		});
+
+		return test_cases;
 	},
 
 	/**

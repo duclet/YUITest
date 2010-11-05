@@ -2,9 +2,9 @@
 ---
 name: YUITest.Configs
 
-description: Holds various configurations for the test. Note that when the
-	script tries to load the configs, it will load the configs from the test
-	suite if there are any, then the testee, and finally the tester.
+description: Holds various configurations for the test. Note that when the script tries to load the
+	configs, it will load the configs from the test suite if there are any, then the testee, and
+	finally the tester.
 
 authors: Duc Tri Le
 
@@ -15,14 +15,14 @@ provides: Configs
 */
 YUITest.Configs = {
 	/**
-	 * @var String	The ID for the element on the test suite page that contains
-	 * 		the final tally of all test results.
+	 * @var String	The ID for the element on the test suite page that contains the final tally of
+	 * 		all test results.
 	 */
 	final_tally: 'final_tally_result',
 
 	/**
-	 * @var String	CSS selector for the element on the test suite page that
-	 * 		logs results from all test pages.
+	 * @var String	CSS selector for the element on the test suite page that logs results from all
+	 * 		test pages.
 	 */
 	global_logger: '#logger',
 
@@ -36,8 +36,8 @@ YUITest.Configs = {
 	},
 
 	/**
-	 * @var Array	An array containing the relative path to the pages to test.
-	 * 		The path should begin with a slash.
+	 * @var Array	An array containing the relative path to the pages to test. The path should
+	 * 		begin with a slash.
 	 */
 	pages: [],
 
@@ -53,23 +53,20 @@ YUITest.Configs = {
 	'</ul>',
 
 	/**
-	 * @var String	The CSS selector for the element on the testee page whose
-	 * 		innerHTML contains the name of test cases (separated by commas) to
-	 * 		test.
+	 * @var String	The CSS selector for the element on the testee page whose innerHTML contains the
+	 * 		name of test cases (separated by commas) to test.
 	 */
 	test_cases_selector: '#test_cases',
 
 	/**
-	 * @var String	Template for the ID of each testee information div on the
-	 * 		test suite page.
+	 * @var String	Template for the ID of each testee information div on the test suite page.
 	 */
 	testee_id_tpt: 'testee_{counter}',
 
 	/**
 	 * @var String	The type for the testee. Possible values are:
-	 * 		- iframe: The testee will be loaded into an iframe on the test
-	 * 			suite.
-	 * 		- window: The testee will be popped to its own window. Default.
+	 * 		iframe: The testee will be loaded into an iframe on the test suite.
+	 * 		window: The testee will be popped to its own window. Default.
 	 */
 	testee_type: 'window',
 
@@ -79,8 +76,7 @@ YUITest.Configs = {
 	testee_window_name: 'yuitest_testee',
 
 	/**
-	 * @var String	The CSS selector for the element on the tester page that
-	 * 		will hold the logger.
+	 * @var String	The CSS selector for the element on the tester page that will hold the logger.
 	 */
 	tester_logger: '#logger',
 
@@ -96,8 +92,8 @@ YUITest.Configs = {
 
 	/**
 	 * @var String	The type for the tester. Possible values are:
-	 * 		- iframe: The tester will be load into an iframe on the testee.
-	 * 		- window: The tester will be popped to its own window. Default.
+	 * 		iframe: The tester will be load into an iframe on the testee.
+	 * 		window: The tester will be popped to its own window. Default.
 	 */
 	tester_type: 'window',
 
@@ -147,8 +143,7 @@ YUITest.Configs = {
 	},
 
 	/**
-	 * Set the provided configs. Note that this function will overwrite any
-	 * existing configurations.
+	 * Set the provided configs. Note that this function will overwrite any existing configurations.
 	 *
 	 * @param Object	configs		The configurations to set.
 	 * @returns YUITest.Configs

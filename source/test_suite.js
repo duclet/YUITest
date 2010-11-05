@@ -2,10 +2,9 @@
 ---
 name: YUITest.TestSuite
 
-description: The test suite allows for running multiple test pages at once. It
-	will launch each test page and wait for the results of that test page before
-	continuing onto the next test page. Refer to the test_suite.php file for
-	what this test page should look like.
+description: The test suite allows for running multiple test pages at once. It will launch each test
+	page and wait for the results of that test page before continuing onto the next test page. Refer
+	to the test_suite.php file for what this test page should look like.
 
 authors: Duc Tri Le
 
@@ -39,21 +38,18 @@ YUITest.TestSuite = {
 	// ---------------------------------------------------------------------- //
 
 	/**
-	 * Initialize the test suite. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y.
+	 * Initialize the test suite. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			var configs = YUITest.Configs;
-
 			// Load any configurations
-			configs.load();
+			var configs = YUITest.Configs.load();
 
 			// Create the console that will log all results from all test pages
-			new $Y.Console(configs.global_logger_config)
-				.render(configs.global_logger);
+			new $Y.Console(configs.global_logger_config).render(configs.global_logger);
 
 			// And now, begin testing
 			YUITest.TestSuite.runNextTestPage();
@@ -61,8 +57,7 @@ YUITest.TestSuite = {
 	},
 
 	/**
-	 * Event handler for logging messages from the tester page to this test
-	 * suite.
+	 * Event handler for logging messages from the tester page to this test suite.
 	 *
 	 * @param Object	event	The event that was triggered.
 	 * @returns void
@@ -72,18 +67,14 @@ YUITest.TestSuite = {
 		if(event.message.message.indexOf('Test suite') === 0) { return; }
 
 		// And now log
-		var last_test_page = YUITest.Configs.pages[
-			YUITest.TestSuite.$counter - 1
-		];
-
+		var last_test_page = YUITest.Configs.pages[YUITest.TestSuite.$counter - 1];
 		$Y.log(event.message.message, event.message.category, last_test_page);
 	},
 
 	/**
 	 * Record the results for the provided page.
 	 *
-	 * @param int		page		The counter for the page the results are
-	 * 		for.
+	 * @param int		page		The counter for the page the results are for.
 	 * @param Object	results		The results for the page.
 	 * @returns YUITest.TestSuite
 	 */
@@ -116,11 +107,10 @@ YUITest.TestSuite = {
 	},
 
 	/**
-	 * Record the results of the previous test page and start running the next
-	 * test page.
+	 * Record the results of the previous test page and start running the next test page.
 	 *
-	 * @param Object	results		The results of the previous test page.
-	 * 		Optional for the first test page.
+	 * @param Object	results		The results of the previous test page. Optional for the first
+	 * 		test page.
 	 * @returns YUITest.TestSuite
 	 */
 	runNextTestPage: function(results) {
@@ -135,8 +125,7 @@ YUITest.TestSuite = {
 		if(me.$counter < configs.pages.length) {
 			var test_page = configs.pages[me.$counter];
 
-			// Update the test suite to let the user know we are running another
-			// test page
+			// Update the test suite to let the user know we are running another test page
 			$Y.log('Begin testing ' + test_page, 'warn');
 			body.append($Y.Lang.sub(
 				'<div id="' + configs.testee_id_tpt + '">' +

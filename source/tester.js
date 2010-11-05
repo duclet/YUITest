@@ -2,8 +2,8 @@
 ---
 name: YUITest.Tester
 
-description: The tester is the page that will actually do the testing. Refer to
-	the tester.php file for what this test page should look like.
+description: The tester is the page that will actually do the testing. Refer to the tester.php file
+	for what this test page should look like.
 
 authors: Duc Tri le
 
@@ -14,18 +14,17 @@ provides: Tester
 */
 YUITest.Tester = {
 	/**
-	 * Initialize and run the tests. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y. If
-	 * this page was opened via another page and that page have a YUITest
-	 * object, a reference to that page will be put into the global variable $C.
+	 * Initialize and run the tests. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y. If this page was opened via another page and
+	 * that page have a YUITest object, a reference to that page will be put into the global
+	 * variable $C.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			// If the parent window is the same as this window, then the testee
-			// had opened this tester window using a popup, otherwise, it was
-			// an iframe
+			// If the parent window is the same as this window, then the testee had opened this
+			// tester window using a popup, otherwise, it was an iframe
 			window.$C = window == window.parent ? window.opener : window.parent;
 
 			// Load any configurations
@@ -62,15 +61,11 @@ YUITest.Tester = {
 			if($C.$C && $C.$C.YUITest) { $C.$C.YUITest.TestSuite.logEvent(e); }
 		});
 
-		// Add in an event handler to let the test suite know when all the tests
-		// has been completed
+		// Add in an event handler to let the test suite know when all the tests has been completed
 		$Y.Test.Runner.subscribe($Y.Test.Runner.COMPLETE_EVENT, function() {
-			// If the test suite exists, give to it the result so it can run the
-			// next page
+			// If the test suite exists, give to it the result so it can run the next page
 			if($C.$C && $C.$C.YUITest) {
-				$C.$C.YUITest.TestSuite.runNextTestPage(
-					$Y.Test.Runner.getResults()
-				);
+				$C.$C.YUITest.TestSuite.runNextTestPage($Y.Test.Runner.getResults());
 			}
 		});
 

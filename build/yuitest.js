@@ -2,8 +2,8 @@
 ---
 name: Base
 
-description: JavaScript testing with YUI 3 Test. Note that the most up to date
-	version of this is available on github at: http://github.com/duclet/YUITest
+description: JavaScript testing with YUI 3 Test. Note that the most up to date version of this is
+	available on github at: http://github.com/duclet/YUITest
 
 authors: Duc Tri Le
 
@@ -17,15 +17,14 @@ var YUITest = {
 	version: 0.2,
 
 	/**
-	 * @var Object	All the test cases. Note that the value of each property
-	 * 		should just be an object that will be passed to Y.Test.Case's
-	 * 		constructor.
+	 * @var Object	All the test cases. Note that the value of each property should just be an
+	 * 		object that will be passed to Y.Test.Case's constructor.
 	 */
 	TestCases: {},
 
 	/**
-	 * Load YUI. Note that this requires that YUI has already been loaded with
-	 * the url: http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js
+	 * Load YUI. Note that this requires that YUI has already been loaded with the url:
+	 * http://yui.yahooapis.com/3.2.0/build/yui/yui-min.js
 	 *
 	 * @param Function	funct		The function to run after YUI has been
 	 * 		loaded.
@@ -52,9 +51,9 @@ var YUITest = {
 ---
 name: YUITest.Configs
 
-description: Holds various configurations for the test. Note that when the
-	script tries to load the configs, it will load the configs from the test
-	suite if there are any, then the testee, and finally the tester.
+description: Holds various configurations for the test. Note that when the script tries to load the
+	configs, it will load the configs from the test suite if there are any, then the testee, and
+	finally the tester.
 
 authors: Duc Tri Le
 
@@ -65,14 +64,14 @@ provides: Configs
 */
 YUITest.Configs = {
 	/**
-	 * @var String	The ID for the element on the test suite page that contains
-	 * 		the final tally of all test results.
+	 * @var String	The ID for the element on the test suite page that contains the final tally of
+	 * 		all test results.
 	 */
 	final_tally: 'final_tally_result',
 
 	/**
-	 * @var String	CSS selector for the element on the test suite page that
-	 * 		logs results from all test pages.
+	 * @var String	CSS selector for the element on the test suite page that logs results from all
+	 * 		test pages.
 	 */
 	global_logger: '#logger',
 
@@ -86,8 +85,8 @@ YUITest.Configs = {
 	},
 
 	/**
-	 * @var Array	An array containing the relative path to the pages to test.
-	 * 		The path should begin with a slash.
+	 * @var Array	An array containing the relative path to the pages to test. The path should
+	 * 		begin with a slash.
 	 */
 	pages: [],
 
@@ -103,23 +102,20 @@ YUITest.Configs = {
 	'</ul>',
 
 	/**
-	 * @var String	The CSS selector for the element on the testee page whose
-	 * 		innerHTML contains the name of test cases (separated by commas) to
-	 * 		test.
+	 * @var String	The CSS selector for the element on the testee page whose innerHTML contains the
+	 * 		name of test cases (separated by commas) to test.
 	 */
 	test_cases_selector: '#test_cases',
 
 	/**
-	 * @var String	Template for the ID of each testee information div on the
-	 * 		test suite page.
+	 * @var String	Template for the ID of each testee information div on the test suite page.
 	 */
 	testee_id_tpt: 'testee_{counter}',
 
 	/**
 	 * @var String	The type for the testee. Possible values are:
-	 * 		- iframe: The testee will be loaded into an iframe on the test
-	 * 			suite.
-	 * 		- window: The testee will be popped to its own window. Default.
+	 * 		iframe: The testee will be loaded into an iframe on the test suite.
+	 * 		window: The testee will be popped to its own window. Default.
 	 */
 	testee_type: 'window',
 
@@ -129,8 +125,7 @@ YUITest.Configs = {
 	testee_window_name: 'yuitest_testee',
 
 	/**
-	 * @var String	The CSS selector for the element on the tester page that
-	 * 		will hold the logger.
+	 * @var String	The CSS selector for the element on the tester page that will hold the logger.
 	 */
 	tester_logger: '#logger',
 
@@ -146,8 +141,8 @@ YUITest.Configs = {
 
 	/**
 	 * @var String	The type for the tester. Possible values are:
-	 * 		- iframe: The tester will be load into an iframe on the testee.
-	 * 		- window: The tester will be popped to its own window. Default.
+	 * 		iframe: The tester will be load into an iframe on the testee.
+	 * 		window: The tester will be popped to its own window. Default.
 	 */
 	tester_type: 'window',
 
@@ -197,8 +192,7 @@ YUITest.Configs = {
 	},
 
 	/**
-	 * Set the provided configs. Note that this function will overwrite any
-	 * existing configurations.
+	 * Set the provided configs. Note that this function will overwrite any existing configurations.
 	 *
 	 * @param Object	configs		The configurations to set.
 	 * @returns YUITest.Configs
@@ -215,10 +209,9 @@ YUITest.Configs = {
 ---
 name: YUITest.TestSuite
 
-description: The test suite allows for running multiple test pages at once. It
-	will launch each test page and wait for the results of that test page before
-	continuing onto the next test page. Refer to the test_suite.php file for
-	what this test page should look like.
+description: The test suite allows for running multiple test pages at once. It will launch each test
+	page and wait for the results of that test page before continuing onto the next test page. Refer
+	to the test_suite.php file for what this test page should look like.
 
 authors: Duc Tri Le
 
@@ -252,21 +245,18 @@ YUITest.TestSuite = {
 	// ---------------------------------------------------------------------- //
 
 	/**
-	 * Initialize the test suite. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y.
+	 * Initialize the test suite. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			var configs = YUITest.Configs;
-
 			// Load any configurations
-			configs.load();
+			var configs = YUITest.Configs.load();
 
 			// Create the console that will log all results from all test pages
-			new $Y.Console(configs.global_logger_config)
-				.render(configs.global_logger);
+			new $Y.Console(configs.global_logger_config).render(configs.global_logger);
 
 			// And now, begin testing
 			YUITest.TestSuite.runNextTestPage();
@@ -274,8 +264,7 @@ YUITest.TestSuite = {
 	},
 
 	/**
-	 * Event handler for logging messages from the tester page to this test
-	 * suite.
+	 * Event handler for logging messages from the tester page to this test suite.
 	 *
 	 * @param Object	event	The event that was triggered.
 	 * @returns void
@@ -285,18 +274,14 @@ YUITest.TestSuite = {
 		if(event.message.message.indexOf('Test suite') === 0) { return; }
 
 		// And now log
-		var last_test_page = YUITest.Configs.pages[
-			YUITest.TestSuite.$counter - 1
-		];
-
+		var last_test_page = YUITest.Configs.pages[YUITest.TestSuite.$counter - 1];
 		$Y.log(event.message.message, event.message.category, last_test_page);
 	},
 
 	/**
 	 * Record the results for the provided page.
 	 *
-	 * @param int		page		The counter for the page the results are
-	 * 		for.
+	 * @param int		page		The counter for the page the results are for.
 	 * @param Object	results		The results for the page.
 	 * @returns YUITest.TestSuite
 	 */
@@ -329,11 +314,10 @@ YUITest.TestSuite = {
 	},
 
 	/**
-	 * Record the results of the previous test page and start running the next
-	 * test page.
+	 * Record the results of the previous test page and start running the next test page.
 	 *
-	 * @param Object	results		The results of the previous test page.
-	 * 		Optional for the first test page.
+	 * @param Object	results		The results of the previous test page. Optional for the first
+	 * 		test page.
 	 * @returns YUITest.TestSuite
 	 */
 	runNextTestPage: function(results) {
@@ -348,8 +332,7 @@ YUITest.TestSuite = {
 		if(me.$counter < configs.pages.length) {
 			var test_page = configs.pages[me.$counter];
 
-			// Update the test suite to let the user know we are running another
-			// test page
+			// Update the test suite to let the user know we are running another test page
 			$Y.log('Begin testing ' + test_page, 'warn');
 			body.append($Y.Lang.sub(
 				'<div id="' + configs.testee_id_tpt + '">' +
@@ -443,8 +426,8 @@ YUITest.TestSuite = {
 ---
 name: YUITest.Testee
 
-description: The testee is use on the page that will be tested against. Refer to
-	the testee.php file for what this test page should look like.
+description: The testee is use on the page that will be tested against. Refer to the testee.php file
+	for what this test page should look like.
 
 authors: Duc Tri Le
 
@@ -455,25 +438,24 @@ provides: Testee
 */
 YUITest.Testee = {
 	/**
-	 * @var Window	Reference to the tester window if the tester was opened via
-	 * 		a window.
+	 * @var Window	Reference to the tester window if the tester was opened via a window.
 	 */
 	$tester: null,
 
 	// ---------------------------------------------------------------------- //
 
 	/**
-	 * Initilize the test page. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y. If
-	 * this page was opened via another page and that page have a YUITest
-	 * object, a reference to that page will be put into the global variable $C.
+	 * Initilize the test page. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y. If this page was opened via another page and
+	 * that page have a YUITest object, a reference to that page will be put into the global
+	 * variable $C.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			// See if this testee was loaded via an iframe or a popup window and
-			// if we have a test suite or not
+			// See if this testee was loaded via an iframe or a popup window and if we have a test
+			// suite or not
 			var ts = window == window.parent ? window.opener : window.parent;
 			if(ts && ts.YUITest) { window.$C = ts; }
 
@@ -546,8 +528,8 @@ YUITest.Testee = {
 ---
 name: YUITest.Tester
 
-description: The tester is the page that will actually do the testing. Refer to
-	the tester.php file for what this test page should look like.
+description: The tester is the page that will actually do the testing. Refer to the tester.php file
+	for what this test page should look like.
 
 authors: Duc Tri le
 
@@ -558,18 +540,17 @@ provides: Tester
 */
 YUITest.Tester = {
 	/**
-	 * Initialize and run the tests. Note that once the initialization has been
-	 * completed, the YUI instance will be set to the global variable $Y. If
-	 * this page was opened via another page and that page have a YUITest
-	 * object, a reference to that page will be put into the global variable $C.
+	 * Initialize and run the tests. Note that once the initialization has been completed, the YUI
+	 * instance will be set to the global variable $Y. If this page was opened via another page and
+	 * that page have a YUITest object, a reference to that page will be put into the global
+	 * variable $C.
 	 *
 	 * @returns void
 	 */
 	initialize: function() {
 		YUITest.loadYUI(function() {
-			// If the parent window is the same as this window, then the testee
-			// had opened this tester window using a popup, otherwise, it was
-			// an iframe
+			// If the parent window is the same as this window, then the testee had opened this
+			// tester window using a popup, otherwise, it was an iframe
 			window.$C = window == window.parent ? window.opener : window.parent;
 
 			// Load any configurations
@@ -606,15 +587,11 @@ YUITest.Tester = {
 			if($C.$C && $C.$C.YUITest) { $C.$C.YUITest.TestSuite.logEvent(e); }
 		});
 
-		// Add in an event handler to let the test suite know when all the tests
-		// has been completed
+		// Add in an event handler to let the test suite know when all the tests has been completed
 		$Y.Test.Runner.subscribe($Y.Test.Runner.COMPLETE_EVENT, function() {
-			// If the test suite exists, give to it the result so it can run the
-			// next page
+			// If the test suite exists, give to it the result so it can run the next page
 			if($C.$C && $C.$C.YUITest) {
-				$C.$C.YUITest.TestSuite.runNextTestPage(
-					$Y.Test.Runner.getResults()
-				);
+				$C.$C.YUITest.TestSuite.runNextTestPage($Y.Test.Runner.getResults());
 			}
 		});
 
